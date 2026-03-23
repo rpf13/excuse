@@ -1,0 +1,52 @@
+<main class="page-shell">
+  <section class="hero-panel">
+    <div class="hero-header">
+      <span class="eyebrow">Office absence, elegantly explained</span>
+      <span class="catalog-pill"><%= @excuse_count %> curated excuses</span>
+    </div>
+
+    <div class="hero-body">
+      <div class="hero-copy">
+        <h1>Generate a believable message for your team colleagues.</h1>
+        <p class="hero-lede">
+          Clean, detailed excuses for why today makes more sense as a home-office day. The tone stays credible, specific, and ready to send without sounding improvised.
+        </p>
+      </div>
+
+      <div class="actions">
+        <%= button_to(@excuse.present? ? "Generate another excuse" : "Generate an excuse", generate_path, method: :post, class: "button button-primary") %>
+      </div>
+    </div>
+  </section>
+
+  <article class="message-card" aria-live="polite" data-controller="copy">
+    <header class="message-header">
+      <div>
+        <span class="label">Generated message</span>
+        <h2>The note you can actually use</h2>
+      </div>
+      <div class="message-actions">
+        <p class="message-meta">Written for team colleagues and refreshed with one click.</p>
+        <button
+          type="button"
+          class="copy-button"
+          data-action="copy#copy"
+          data-copy-target="button"
+          <% unless @excuse.present? %>disabled<% end %>
+        >
+          <span data-copy-target="label">Copy</span>
+        </button>
+      </div>
+    </header>
+
+    <div class="message-surface" data-copy-target="source">
+      <% if @excuse.present? %>
+        <p class="excuse-text"><%= @excuse %></p>
+      <% else %>
+        <p class="excuse-text placeholder">
+          Press the button to generate a polished excuse for why you need to work from home instead of coming into the office today.
+        </p>
+      <% end %>
+    </div>
+  </article>
+</main>
